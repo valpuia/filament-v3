@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Filters\Layout;
 use Filament\Tables\Table;
 
 class PatientResource extends Resource
@@ -75,7 +76,7 @@ class PatientResource extends Resource
                         'dog' => 'Dog',
                         'rabbit' => 'Rabbit',
                     ]),
-            ])
+            ], layout: Layout::AboveContentCollapsible)
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
