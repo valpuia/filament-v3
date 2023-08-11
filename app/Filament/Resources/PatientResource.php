@@ -28,6 +28,7 @@ class PatientResource extends Resource
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('type')
+                    ->searchable()
                     ->options([
                         'cat' => 'Cat',
                         'dog' => 'Dog',
@@ -64,11 +65,17 @@ class PatientResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->searchable(),
+                Tables\Columns\TextColumn::make('index')
+                    ->rowIndex(isFromZero: true),
+                Tables\Columns\TextColumn::make('name')
+                    // ->badge()
+                    ->description('abcdefgh')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('type'),
                 Tables\Columns\TextColumn::make('date_of_birth')->sortable(),
                 Tables\Columns\TextColumn::make('owner.name')->searchable(),
             ])
+            ->recordUrl(null)
             ->filters([
                 Tables\Filters\SelectFilter::make('type')
                     ->options([
@@ -76,7 +83,8 @@ class PatientResource extends Resource
                         'dog' => 'Dog',
                         'rabbit' => 'Rabbit',
                     ]),
-            ], layout: Layout::AboveContentCollapsible)
+            ])
+            // ], layout: Layout::AboveContentCollapsible)
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
